@@ -13,13 +13,17 @@
 // =====================================================
 // Reemplaza estos valores con la información de tu proyecto
 
+/**
+ * CONFIGURACIÓN DEL PROYECTO - Versión Corregida para Urdimbre EHE
+ */
+
 export const SITIO = {
   titulo: 'Urdimbre EHE',
   descripcion: '**Urdimbre EHE** es el soporte invisible donde se entrelazan las ideas, la investigación y la creación. ',
   autor: 'Natalia Rocha | Escuela de Humanidades y Educación, Tec de Monterrey, Campus Guadalajara',
   urlSitio: typeof __URL_SITIO__ !== 'undefined' ? __URL_SITIO__ : '',
   idioma: 'es',
-  pais: 'MX', // Cambié CO por MX ya que mencionas el Tec de Monterrey
+  pais: 'MX', 
 };
 
 export const BASEROW = {
@@ -28,8 +32,9 @@ export const BASEROW = {
   idBaseDatos: 365391,
 };
 
-// TABLA PRINCIPAL DE PROYECTOS
-export const TABLA_PROYECTOS = { 
+// --- CAMBIO CLAVE AQUÍ ---
+// Cambiamos TABLA_PROYECTOS por Urdimbre_EHE para que el build no falle
+export const Urdimbre_EHE = { 
   id: 826870,
   campos: {
     titulo: 'Name', 
@@ -38,26 +43,27 @@ export const TABLA_PROYECTOS = {
     descripcion: 'Descripción', 
     contribuidor: 'Contribuidor', 
     año: 'Año', 
-    // Asegúrate de que estos existan en la tabla 826870:
     tipo: 'Tipo',
     imagen: 'Imagen',
     enlace: 'Enlace'
   },
 };
 
-// TABLA DE CONFIGURACIÓN DEL SITIO (CMS)
 export const DATOS_SITIO = {
   id: 829612,
-  // REVISA: Estos nombres deben ser las COLUMNAS de la tabla 829612
   campos: {
     titulo: 'Name', 
-    introduccion: 'Descripción',
-    pieDePagina: 'Footer'
+    introTitulo: 'Name', // Ajuste para que coincida con la lógica de secciones
+    introTexto: 'Descripción',
+    coleccionTitulo: 'Name',
+    coleccionTexto: 'Descripción',
+    investigacionTitulo: 'Name',
+    investigacionTexto: 'Descripción'
   },
 };
 
 export const AVANZADO = {
-  basePath: '/urdimbre-ehe/', // Correcto para GitHub Pages
+  basePath: '/urdimbre-ehe/',
   tiempoRecarga: 300,
   debug: true,
   tamanoPagina: 100,
