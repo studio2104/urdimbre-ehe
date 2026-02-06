@@ -53,7 +53,8 @@ export const BASEROW = {
 // 3. CONFIGURACIÓN DE TABLAS Y CAMPOS
 // =====================================================
 
-export const Urdimbre_EHE = {
+// Antes: export const Urdimbre_EHE = {
+export const TABLA_PROYECTOS = { 
   id: 826870,
   campos: {
     titulo: 'Name', 
@@ -63,7 +64,7 @@ export const Urdimbre_EHE = {
     contribuidor: 'Contribuidor', 
     año: 'Año', 
     fecha: 'Fecha', 
-    tipo: 'Tipo', 
+    tipo: 'Type', 
     formato: 'Format', 
     imagen: 'Imagen', 
     enlace: 'Enlace', 
@@ -110,7 +111,7 @@ export const AVANZADO = {
   // Si tu sitio está en una subruta de GitHub Pages
   // Por ejemplo: https://tuusuario.github.io/mi-sitio
   // Cambia esto a: '/mi-sitio'
-  basePath: '/',
+  basePath: '/urdimbre-ehe/',
 
   // Número de segundos antes de recargar los datos de Baserow
   // (para ver cambios en tiempo real, reduce este número)
