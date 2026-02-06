@@ -1,5 +1,5 @@
 import './scss/estilos.scss';
-import { SITIO, TABLA_PROYECTOS, DATOS_SITIO, AVANZADO } from './config.js';
+import { SITIO, Urdimbre_EHE, DATOS_SITIO, AVANZADO } from './config.js'; // Nota: Cambié TABLA_PROYECTOS por Urdimbre_EHE para que coincida con tu config
 import { obtenerCamposTabla, obtenerRegistrosTabla } from './baserow.js';
 import { crearSeccionCMS, crearTarjetaProyecto } from './componentes.js';
 
@@ -60,7 +60,7 @@ async function cargarYMostrarProyectos() {
   try {
     const proyectos = AVANZADO.modoEstatico ? await obtenerProyectosEstaticos() : await obtenerProyectosConCache();
     if (!AVANZADO.modoEstatico && !camposTablaMemo) {
-      camposTablaMemo = await obtenerCamposTabla(TABLA_PROYECTOS.id);
+      camposTablaMemo = await obtenerCamposTabla(Urdimbre_EHE.id);
     }
 
     todosLosProyectos = proyectos;
@@ -129,13 +129,18 @@ function mostrarProyectos(proyectos) {
 
   proyectos.forEach((proyecto) => {
     const tarjeta = crearTarjetaProyecto({
-      titulo: proyecto[TABLA_PROYECTOS.campos.titulo],
-      descripcion: proyecto[TABLA_PROYECTOS.campos.descripcion],
-      imagen: proyecto[TABLA_PROYECTOS.campos.imagen],
-      enlace: proyecto[TABLA_PROYECTOS.campos.enlace],
+      titulo: proyecto[Urdimbre_EHE.campos.titulo],
+      descripcion: proyecto[Urdimbre_EHE.campos.descripcion],
+      imagen: proyecto[Urdimbre_EHE.campos.imagen],
+      enlace: proyecto[Urdimbre_EHE.campos.enlace],
       registro: proyecto,
       campos: camposTablaMemo,
-      camposBase: [TABLA_PROYECTOS.campos.titulo, TABLA_PROYECTOS.campos.descripcion, TABLA_PROYECTOS.campos.imagen, TABLA_PROYECTOS.campos.enlace],
+      camposBase: [
+        Urdimbre_EHE.campos.titulo, 
+        Urdimbre_EHE.campos.descripcion, 
+        Urdimbre_EHE.campos.imagen, 
+        Urdimbre_EHE.campos.enlace
+      ],
     });
     contenedorProyectos.appendChild(tarjeta);
   });
@@ -189,30 +194,35 @@ async function inicializarSitio() {
 
 async function cargarDatosSitio() {
   if (!DATOS_SITIO?.id) return { ...SITIO };
-  const registros = await obtenerRegistrosTabla(DATOS_SITIO.id);
-  const registro = registros[0];
-  if (!registro) return { ...SITIO };
+  
+  try {
+    const registros = await obtenerRegistrosTabla(DATOS_SITIO.id);
+    const registro = registros[0];
+    if (!registro) return { ...SITIO };
 
-  const c = DATOS_SITIO.campos;
-  return {
-    titulo: registro[c.titulo] || SITIO.titulo,
-    descripcion: registro[c.descripcion] || SITIO.descripcion,
-    urlSitio: registro[c.urlSitio] || SITIO.urlSitio,
-    introTitulo: registro[c.introTitulo] || 'La Urdimbre',
-    introTexto: registro[c.introTexto] || '',
-    coleccionTitulo: registro[c.coleccionTitulo] || 'Tramas creativas',
-    coleccionTexto: registro[c.coleccionTexto] || '',
-    // NUEVO: Campos para la sección de investigación
-    investigacionTitulo: registro['investigacionTitulo'] || 'Investigación',
-    investigacionTexto: registro['investigacionTexto'] || 'Espacio dedicado a la investigación académica.'
-  };
+    const c = DATOS_SITIO.campos;
+    return {
+      titulo: registro[c.titulo] || SITIO.titulo,
+      descripcion: registro[c.descripcion] || SITIO.descripcion,
+      urlSitio: registro[c.urlSitio] || SITIO.urlSitio,
+      introTitulo: registro[c.introTitulo] || 'La Urdimbre',
+      introTexto: registro[c.introTexto] || '',
+      coleccionTitulo: registro[c.coleccionTitulo] || 'Tramas creativas',
+      coleccionTexto: registro[c.coleccionTexto] || '',
+      investigacionTitulo: registro[c.investigacionTitulo] || 'Investigación',
+      investigacionTexto: registro[c.investigacionTexto] || 'Espacio de investigación.'
+    };
+  } catch (error) {
+    console.error("Error cargando CMS:", error);
+    return { ...SITIO };
+  }
 }
 
 function construirSecciones(datosSitio) {
   const contenedor = document.querySelector('main') || document.body;
   contenedor.innerHTML = '';
 
-  // 1. SECCIÓN INICIO
+  // 1. Inicio
   contenedor.appendChild(crearSeccionCMS({
     id: 'inicio',
     titulo: datosSitio.introTitulo,
@@ -220,7 +230,7 @@ function construirSecciones(datosSitio) {
     clase: 'seccion-inicio',
   }));
 
-  // 2. SECCIÓN PROYECTOS (COLECCIÓN)
+  // 2. Proyectos
   const seccionColeccion = crearSeccionCMS({
     id: 'proyectos',
     titulo: datosSitio.coleccionTitulo,
@@ -228,20 +238,19 @@ function construirSecciones(datosSitio) {
     clase: 'seccion-proyectos',
   });
 
-  const wrapperProyectos = document.createElement('div');
-  wrapperProyectos.className = 'proyectos-wrapper';
-  const espacioBuscador = document.createElement('div');
-  espacioBuscador.id = 'espacio-buscador';
-  wrapperProyectos.appendChild(espacioBuscador);
-
+  const wrapper = document.createElement('div');
+  wrapper.className = 'proyectos-wrapper';
+  const buscadorDiv = document.createElement('div');
+  buscadorDiv.id = 'espacio-buscador';
+  
   contenedorProyectos = document.createElement('div');
   contenedorProyectos.className = 'proyectos-grid';
-  wrapperProyectos.appendChild(contenedorProyectos);
-  seccionColeccion.appendChild(wrapperProyectos);
+  
+  wrapper.append(buscadorDiv, contenedorProyectos);
+  seccionColeccion.appendChild(wrapper);
   contenedor.appendChild(seccionColeccion);
 
-  // 3. NUEVA SECCIÓN: INVESTIGACIÓN
-  // Esto hace que el link #investigacion del menú tenga a donde llegar
+  // 3. Investigación
   contenedor.appendChild(crearSeccionCMS({
     id: 'investigacion',
     titulo: datosSitio.investigacionTitulo,
@@ -257,14 +266,14 @@ function construirSecciones(datosSitio) {
 // =====================================================
 
 async function obtenerProyectosConCache() {
-  if (!AVANZADO.cacheHabilitado) return obtenerRegistrosTabla(TABLA_PROYECTOS.id);
-  const cacheKey = `baserow_cache_${TABLA_PROYECTOS.id}`;
+  if (!AVANZADO.cacheHabilitado) return obtenerRegistrosTabla(Urdimbre_EHE.id);
+  const cacheKey = `baserow_cache_${Urdimbre_EHE.id}`;
   const cacheRaw = localStorage.getItem(cacheKey);
   if (cacheRaw) {
     const cache = JSON.parse(cacheRaw);
     if (Date.now() - cache.timestamp < (AVANZADO.cacheTTL * 1000)) return cache.data;
   }
-  const datos = await obtenerRegistrosTabla(TABLA_PROYECTOS.id);
+  const datos = await obtenerRegistrosTabla(Urdimbre_EHE.id);
   localStorage.setItem(cacheKey, JSON.stringify({ timestamp: Date.now(), data: datos }));
   return datos;
 }
