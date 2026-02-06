@@ -50,8 +50,8 @@ export const DATOS_SITIO = {
   id: 829612,
   // REVISA: Estos nombres deben ser las COLUMNAS de la tabla 829612
   campos: {
-    titulo: 'Titulo_Sitio', 
-    introduccion: 'Introduccion',
+    titulo: 'Name', 
+    introduccion: 'Descripción',
     pieDePagina: 'Footer'
   },
 };
