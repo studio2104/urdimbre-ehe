@@ -75,7 +75,7 @@ export const BASEROW = {
 // Define aquí qué datos quieres mostrar en tu sitio
 
 // Ejemplo: tabla de "Películas"
-export const TABLA_PROYECTOS = {
+export const Urdimbre_EHE = {
   // El ID de la tabla en Baserow
   // Cómo conseguirlo: Ve a tu tabla, el URL es /database/[DB_ID]/table/[TABLE_ID]/
   id: 826870,
@@ -83,11 +83,18 @@ export const TABLA_PROYECTOS = {
   // Los nombres de los campos en tu tabla
   // (deben coincidir exactamente con los nombres en Baserow)
   campos: {
-    titulo: 'Título', // Campo que contiene el título del proyecto
+    titulo: 'Name', // Campo que contiene el título del proyecto
+    creador: 'Creador', // Campo que contiene nombre del creador o equipo
+    temas: 'Temas', // Campo que contiene los temas o categorías
     descripcion: 'Descripción', // Campo que contiene la descripción
+    contribuidor: 'Contribuidor', // Campo que contiene el contribuidor
+    año: 'Año', // Campo que contiene el año de creación
+    fecha: 'Fecha', // Campo que contiene la fecha de publicación o creación
+    tipo: 'Tipo', // Campo que contiene el tipo de proyecto (ej. investigación, narrativa, etc.)
+    formato: 'Format', // Campo que contiene el formato del proyecto (ej. texto, video, audio, etc.)
     imagen: 'Imagen', // Campo que contiene la URL de la imagen
     enlace: 'Enlace', // Campo que contiene un enlace externo
-    fecha: 'Fecha', // Campo que contiene la fecha
+    autor: 'Autor registro', // Campo que contiene el nombre del autor o equipo
   },
 };
 
