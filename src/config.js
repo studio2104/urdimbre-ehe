@@ -15,17 +15,17 @@
 
 export const SITIO = {
   // El nombre de tu sitio (aparecerá en el navegador y en Google)
-  titulo: 'Mi Sitio con Baserow',
+  titulo: 'Urdimbre EHE',
 
   // Una descripción breve del sitio
-  descripcion: 'Un sitio creado con Baserow y GitHub Pages',
+  descripcion: '**Urdimbre EHE** es el soporte invisible donde se entrelazan las ideas, la investigación y la creación. ',
 
   // Tu nombre o nombre de la organización
-  autor: 'Mi Nombre',
+  autor: 'Natalia Rocha | Escuela de Humanidades y Educación, Tec de Monterrey, Campus Guadalajara',
 
   // El URL se obtiene automáticamente desde vite.config.js
   // No necesitas cambiar esto aquí
-  urlSitio: __URL_SITIO__ || 'https://ejemplo.com',
+  urlSitio: __URL_SITIO__ || 'studio2104.github.io/urdimbre-ehe/',
 
   // Idioma del sitio (ISO 639-1)
   idioma: 'es',
@@ -102,13 +102,13 @@ export const DATOS_SITIO = {
 
   // Nombres exactos de los campos en esa tabla
   campos: {
-    titulo: 'Nombre del sitio',
-    descripcion: 'Descripción',
-    urlSitio: 'URL del sitio',
-    introTitulo: 'Título introducción',
+    titulo: 'Urdimbre EHE',
+    descripcion: 'Urdimbre EHE es el soporte invisible donde se entrelazan las ideas, la investigación y la creación.',
+    urlSitio: 'studio2104.github.io/urdimbre-ehe/',
+    introTitulo: 'La Urdimbre',
     introTexto: 'Introducción',
-    coleccionTitulo: 'Título colección',
-    coleccionTexto: 'Texto colección',
+    coleccionTitulo: 'Tramas creativas',
+    coleccionTexto: 'Si la Escuela es la base, las **Tramas Creativas** son el diseño que emerge del entrelazado de talentos. Esta sección es nuestra vitrina viva: el espacio donde la teoría se convierte en práctica, la investigación en narrativa y el conocimiento en acción con impacto social.',
   },
 };
 
