@@ -205,12 +205,10 @@ async function cargarDatosSitio() {
       titulo: registro[c.titulo] || SITIO.titulo,
       descripcion: registro[c.descripcion] || SITIO.descripcion,
       urlSitio: registro[c.urlSitio] || SITIO.urlSitio,
-      introTitulo: registro[c.introTitulo] || 'La Urdimbre',
-      introTexto: registro[c.introTexto] || '',
-      coleccionTitulo: registro[c.coleccionTitulo] || 'Tramas creativas',
-      coleccionTexto: registro[c.coleccionTexto] || '',
-      investigacionTitulo: registro[c.investigacionTitulo] || 'Investigación',
-      investigacionTexto: registro[c.investigacionTexto] || 'Espacio de investigación.'
+      introTitulo: registro[c.titulointro] || 'La Urdimbre',
+      introTexto: registro[c.intro] || '',
+      coleccionTitulo: registro[c.titulocoleccion] || 'Tramas creativas',
+      coleccionTexto: registro[c.textocoleccion] || '',
     };
   } catch (error) {
     console.error("Error cargando CMS:", error);
