@@ -5,7 +5,20 @@
  * Usa estas funciones para construir las diferentes partes de tu sitio.
  */
 
+/**
+ * MÓDULO DE COMPONENTES CORREGIDO
+ */
+
 import { marked } from 'marked';
+
+// --- FUNCIÓN DE APOYO PARA IMÁGENES DE BASEROW ---
+// Esta función extrae la URL sin importar si es un array o un string
+function obtenerUrlImagen(datoImagen) {
+  if (Array.isArray(datoImagen) && datoImagen.length > 0) {
+    return datoImagen[0].url;
+  }
+  return typeof datoImagen === 'string' ? datoImagen : '';
+}
 
 function renderizarMarkdown(texto) {
   if (!texto) return '';
@@ -23,7 +36,7 @@ function escaparHtml(texto) {
 
 function formatearFecha(valor) {
   const fecha = new Date(valor);
-  if (Number.isNaN(fecha.getTime())) return escapeHtml(valor);
+  if (Number.isNaN(fecha.getTime())) return escaparHtml(valor);
   return fecha.toLocaleDateString('es-CO', { year: 'numeric', month: 'short', day: 'numeric' });
 }
 
@@ -43,9 +56,9 @@ function renderizarArchivo(archivo) {
   if (!url) return escaparHtml(nombre);
   const esImagen = archivo.is_image || archivo.image || false;
   if (esImagen) {
-    return `<img src="${url}" alt="${escapeHtml(nombre)}" class="campo-imagen">`;
+    return `<img src="${url}" alt="${escaparHtml(nombre)}" class="campo-imagen">`;
   }
-  return `<a href="${url}" target="_blank" rel="noreferrer">${escapeHtml(nombre)}</a>`;
+  return `<a href="${url}" target="_blank" rel="noreferrer">${escaparHtml(nombre)}</a>`;
 }
 
 function renderizarValorCampo(valor, campo) {
@@ -122,44 +135,24 @@ function renderizarCamposAutomaticos(registro, campos, camposBase = []) {
   return `<div class="campos-extra">${htmlCampos}</div>`;
 }
 
-/**
- * Crea una tarjeta con información de un proyecto
- *
- * Uso:
- * const tarjeta = crearTarjetaProyecto({
- *   titulo: 'Mi Proyecto',
- *   descripcion: 'Una descripción breve',
- *   imagen: 'https://ejemplo.com/imagen.jpg',
- *   enlace: 'https://ejemplo.com'
- * });
- * document.body.appendChild(tarjeta);
- *
- * @param {Object} datos - Los datos de la tarjeta
- * @param {string} datos.titulo - El título del proyecto
- * @param {string} datos.descripcion - La descripción
- * @param {string} datos.imagen - URL de la imagen (opcional)
- * @param {string} datos.enlace - URL del enlace (opcional)
- * @returns {HTMLElement} Un elemento HTML listo para insertar
- */
 export function crearTarjetaProyecto(datos) {
   const div = document.createElement('article');
   div.className = 'tarjeta-proyecto';
 
+  const urlImagen = obtenerUrlImagen(datos.imagen);
   let html = '<div class="tarjeta-contenido">';
 
-  // Agregar imagen si existe
-  if (datos.imagen) {
-    html += `<img src="${datos.imagen}" alt="${datos.titulo}" class="tarjeta-imagen">`;
+  if (urlImagen) {
+    html += `<img src="${urlImagen}" alt="${escaparHtml(datos.titulo)}" class="tarjeta-imagen">`;
   }
 
   html += '<div class="tarjeta-texto">';
-  html += `<h3 class="tarjeta-titulo">${datos.titulo}</h3>`;
+  html += `<h3 class="tarjeta-titulo">${escaparHtml(datos.titulo)}</h3>`;
 
   if (datos.descripcion) {
     html += `<div class="tarjeta-descripcion contenido-markdown">${renderizarMarkdown(datos.descripcion)}</div>`;
   }
 
-  // Agregar enlace si existe
   if (datos.enlace) {
     html += `<a href="${datos.enlace}" class="tarjeta-enlace">Ver fuente →</a>`;
   }
@@ -169,33 +162,26 @@ export function crearTarjetaProyecto(datos) {
   }
 
   html += '</div></div>';
-
   div.innerHTML = html;
   return div;
 }
 
-/**
- * Crea una lista de artículos
- *
- * @param {Array} articulos - Array de artículos con {titulo, contenido, fecha}
- * @returns {HTMLElement} Un elemento HTML con la lista
- */
 export function crearListaArticulos(articulos) {
   const div = document.createElement('section');
   div.className = 'lista-articulos';
-
   let html = '<div class="articulos-contenedor">';
 
   articulos.forEach((articulo) => {
+    const urlImagen = obtenerUrlImagen(articulo.imagen);
     html += '<article class="articulo">';
-    html += `<h2>${articulo.titulo}</h2>`;
+    html += `<h2>${escaparHtml(articulo.titulo)}</h2>`;
 
     if (articulo.fecha) {
-      html += `<time class="articulo-fecha">${articulo.fecha}</time>`;
+      html += `<time class="articulo-fecha">${formatearFecha(articulo.fecha)}</time>`;
     }
 
-    if (articulo.imagen) {
-      html += `<img src="${articulo.imagen}" alt="${articulo.titulo}" class="articulo-imagen">`;
+    if (urlImagen) {
+      html += `<img src="${urlImagen}" alt="${escaparHtml(articulo.titulo)}" class="articulo-imagen">`;
     }
 
     html += `<div class="articulo-contenido contenido-markdown">${renderizarMarkdown(articulo.contenido)}</div>`;
@@ -203,116 +189,78 @@ export function crearListaArticulos(articulos) {
   });
 
   html += '</div>';
-
   div.innerHTML = html;
   return div;
 }
 
-/**
- * Crea un galería de imágenes
- *
- * @param {Array} imagenes - Array de {url, titulo, descripcion}
- * @returns {HTMLElement} Un elemento HTML con la galería
- */
 export function crearGaleria(imagenes) {
   const div = document.createElement('section');
   div.className = 'galeria';
-
   let html = '<div class="galeria-grid">';
 
   imagenes.forEach((img) => {
+    // Aquí el campo suele llamarse 'url' o venir de un campo de imagen
+    const urlImagen = img.url ? obtenerUrlImagen(img.url) : obtenerUrlImagen(img.imagen);
+    
     html += '<figure class="galeria-item">';
-    html += `<img src="${img.url}" alt="${img.titulo}" loading="lazy">`;
+    html += `<img src="${urlImagen}" alt="${escaparHtml(img.titulo || '')}" loading="lazy">`;
 
     if (img.titulo || img.descripcion) {
       html += '<figcaption>';
-      if (img.titulo) html += `<h3>${img.titulo}</h3>`;
-      if (img.descripcion) html += `<p>${img.descripcion}</p>`;
+      if (img.titulo) html += `<h3>${escaparHtml(img.titulo)}</h3>`;
+      if (img.descripcion) html += `<p>${escaparHtml(img.descripcion)}</p>`;
       html += '</figcaption>';
     }
-
     html += '</figure>';
   });
 
   html += '</div>';
-
   div.innerHTML = html;
   return div;
 }
 
-/**
- * Crea un héroe (banner) al inicio de la página
- *
- * @param {Object} datos - {titulo, subtitulo, imagen, enlace, textoEnlace}
- * @returns {HTMLElement} Un elemento HTML del héroe
- */
 export function crearHereo(datos) {
   const div = document.createElement('section');
   div.className = 'hereo';
 
+  const urlImagen = obtenerUrlImagen(datos.imagen);
   let html = '';
 
-  if (datos.imagen) {
-    html += `<img src="${datos.imagen}" alt="${datos.titulo}" class="hereo-fondo">`;
+  if (urlImagen) {
+    html += `<img src="${urlImagen}" alt="${escaparHtml(datos.titulo)}" class="hereo-fondo">`;
   }
 
   html += '<div class="hereo-contenido">';
-  html += `<h1>${datos.titulo}</h1>`;
+  html += `<h1>${escaparHtml(datos.titulo)}</h1>`;
 
   if (datos.subtitulo) {
-    html += `<p class="hereo-subtitulo">${datos.subtitulo}</p>`;
+    html += `<p class="hereo-subtitulo">${escaparHtml(datos.subtitulo)}</p>`;
   }
 
   if (datos.enlace) {
-    html += `<a href="${datos.enlace}" class="hereo-boton">${datos.textoEnlace || 'Explora'}</a>`;
+    html += `<a href="${datos.enlace}" class="hereo-boton">${escaparHtml(datos.textoEnlace || 'Explora')}</a>`;
   }
 
   html += '</div>';
-
   div.innerHTML = html;
   return div;
 }
 
-/**
- * Crea una sección con un título y contenido
- *
- * @param {string} titulo - El título de la sección
- * @param {string} contenido - El HTML o texto del contenido
- * @param {string} clase - Clase CSS adicional (opcional)
- * @returns {HTMLElement}
- */
 export function crearSeccion(titulo, contenido, clase = '') {
   const div = document.createElement('section');
   div.className = `seccion ${clase}`;
-
-  let html = `<h2>${titulo}</h2>`;
-  html += `<div class="seccion-contenido">${contenido}</div>`;
-
-  div.innerHTML = html;
+  div.innerHTML = `<h2>${escaparHtml(titulo)}</h2><div class="seccion-contenido">${contenido}</div>`;
   return div;
 }
 
-/**
- * Crea una sección con contenido desde CMS (Markdown)
- *
- * @param {Object} datos - {id, titulo, contenido, clase}
- * @returns {HTMLElement}
- */
 export function crearSeccionCMS(datos) {
   const div = document.createElement('section');
   div.className = `seccion ${datos.clase || ''}`.trim();
-  if (datos.id) {
-    div.id = datos.id;
-  }
+  if (datos.id) div.id = datos.id;
 
   let html = '';
-  if (datos.titulo) {
-    html += `<h2>${datos.titulo}</h2>`;
-  }
-
-  if (datos.contenido) {
-    html += `<div class="seccion-contenido contenido-markdown">${renderizarMarkdown(datos.contenido)}</div>`;
-  }
+  if (datos.titulo) html += `<h2>${escaparHtml(datos.titulo)}</h2>`;
+  if (datos.contenido) html += `<div class="seccion-contenido contenido-markdown">${renderizarMarkdown(datos.contenido)}</div>`;
 
   div.innerHTML = html;
   return div;
