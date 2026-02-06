@@ -53,12 +53,11 @@ export const DATOS_SITIO = {
   id: 829612,
   campos: {
     titulo: 'Name', 
-    introTitulo: 'Título introducción', // Ajuste para que coincida con la lógica de secciones
-    introTexto: 'Introducción',
-    coleccionTitulo: 'Título colección',
-    coleccionTexto: 'Texto colección',
-    investigacionTitulo: 'Name',
-    investigacionTexto: 'Descripción'
+    introTitulo: 'titulointro', // Ajuste para que coincida con la lógica de secciones
+    introTexto: 'intro',
+    coleccionTitulo: 'Titulocoleccion ',
+    coleccionTexto: 'Textocoleccion',
+    
   },
 };
 
