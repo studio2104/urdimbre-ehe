@@ -18,7 +18,7 @@
  */
 
 export const SITIO = {
-  titulo: 'Urdimbre EHE',
+  titulo: 'Urdimbre_EHE',
   descripcion: '**Urdimbre EHE** es el soporte invisible donde se entrelazan las ideas, la investigación y la creación. ',
   autor: 'Natalia Rocha | Escuela de Humanidades y Educación, Tec de Monterrey, Campus Guadalajara',
   urlSitio: typeof __URL_SITIO__ !== 'undefined' ? __URL_SITIO__ : '',
