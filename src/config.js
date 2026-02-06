@@ -25,7 +25,7 @@ export const SITIO = {
 
   // El URL se obtiene automáticamente desde vite.config.js
   // No necesitas cambiar esto aquí
-  urlSitio: __URL_SITIO__ || 'studio2104.github.io/urdimbre-ehe/',
+  urlSitio: __URL_SITIO__ || '',
 
   // Idioma del sitio (ISO 639-1)
   idioma: 'es',
@@ -43,7 +43,7 @@ export const BASEROW = {
   // El URL de tu instancia Baserow
   // Si usas Baserow Cloud (gratuito): https://api.baserow.io
   // Si tienes un servidor propio: https://tu-dominio.com
-  urlBaserow: 'https://api.baserow.io',
+  urlBaserow: 'https://api.baserow.io/api/database/rows/table/826870/',
 
   // Tu token de autenticación de Baserow
   // Cómo conseguirlo:
