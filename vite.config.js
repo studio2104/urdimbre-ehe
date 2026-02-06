@@ -1,14 +1,8 @@
 import { defineConfig } from 'vite';
 
-const urlSitio = "https://studio2104.github.io/urdimbre-ehe/";
-
 export default defineConfig({
-  // Ruta base para GitHub Pages
+  // Ruta base correcta para tu repositorio
   base: '/urdimbre-ehe/', 
-
-  define: {
-    __URL_SITIO__: JSON.stringify(urlSitio),
-  },
 
   server: {
     port: 3000,
@@ -21,7 +15,6 @@ export default defineConfig({
     assetsDir: 'assets',
     sourcemap: false,
     minify: 'terser',
-    cssCodeSplit: true,
   },
 
   css: {
