@@ -55,8 +55,8 @@ export const DATOS_SITIO = {
     titulo: 'Nombre del Sitio', 
     introTitulo: 'titulointro', // Ajuste para que coincida con la lógica de secciones
     introTexto: 'intro',
-    coleccionTitulo: 'Titulocoleccion ',
-    coleccionTexto: 'Textocoleccion',
+    coleccionTitulo: 'titulocoleccion ',
+    coleccionTexto: 'textocoleccion',
     
   },
 };
