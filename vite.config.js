@@ -1,20 +1,10 @@
 import { defineConfig } from 'vite';
-import sitemap from 'vite-plugin-sitemap';
 
-/**
- * CONFIGURACIÓN DE VITE
- *
- * Para GitHub Pages, cambia 'base' según dónde publiques:
- * - Si es un sitio personal (usuario.github.io): base: '/'
- * - Si es en un repositorio: base: '/nombre-repositorio/'
- */
-
-// ⭐ URL DEL SITIO - CAMBIAR AQUÍ
-const urlSitio = "https://studio2104.github.io/urdimbre-ehe/"
+const urlSitio = "https://studio2104.github.io/urdimbre-ehe/";
 
 export default defineConfig({
-  // IMPORTANTE: Descomenta y ajusta según donde publiques en GitHub Pages
-  base: '/urdimbre-ehe/', // Para proyecto en repositorio
+  // Ruta base para GitHub Pages
+  base: '/urdimbre-ehe/', 
 
   define: {
     __URL_SITIO__: JSON.stringify(urlSitio),
@@ -23,33 +13,22 @@ export default defineConfig({
   server: {
     port: 3000,
   },
+  
   publicDir: 'estaticos',
+
   build: {
-    outDir: 'dist', // GitHub Pages busca aquí por defecto
+    outDir: 'dist',
     assetsDir: 'assets',
     sourcemap: false,
-    // Optimizaciones para producción
     minify: 'terser',
     cssCodeSplit: true,
   },
+
   css: {
     preprocessorOptions: {
       scss: {
         api: 'modern-compiler',
       },
     },
-  },
-  plugins: [
-    sitemap({
-      hostname: urlSitio,
-      outDir: 'dist',
-      robots: [
-        {
-          userAgent: '*',
-          allow: '/',
-        },
-      ],
-      dynamicRoutes: ['/'],
-    }),
-  ],
+  }
 });
