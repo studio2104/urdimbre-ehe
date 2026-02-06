@@ -54,19 +54,20 @@ export const BASEROW = {
   // 5. Crea un nuevo token (dale un nombre descriptivo)
   // 6. IMPORTANTE: Marca solo permisos de LECTURA (read)
   // 7. Copia el token aquí
+VITE_BASEROW_TOKEN: "8KVQuPA2mFs6i7WJJevpz6Ui3msfNWcB",
   //
   // NOTA PARA ESTUDIANTES:
   // Este token estará visible en GitHub. Para proyectos educativos
   // sin datos sensibles está bien, pero SIEMPRE configura el token
   // con permisos de solo LECTURA en Baserow.
-  token: import.meta.env.VITE_BASEROW_TOKEN || '8KVQuPA2mFs6i7WJJevpz6Ui3msfNWcB',
+import.meta.env.VITE_BASEROW_TOKEN: "8KVQuPA2mFs6i7WJJevpz6Ui3msfNWcB",
 
   // El ID de tu base de datos Baserow
   // Cómo conseguirlo:
   // 1. Ve a tu base de datos en Baserow
   // 2. Mira la URL en el navegador: /database/[ID]/
   // 3. El [ID] es lo que necesitas aquí
-  idBaseDatos: 365391,
+id Base Datos: 365391,
 };
 
 // =====================================================
