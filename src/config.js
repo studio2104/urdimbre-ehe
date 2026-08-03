@@ -37,7 +37,7 @@ export const BASEROW = {
 export const Urdimbre_EHE = { 
   id: 826870,
   campos: {
-    titulo: 'Nombre del proyecto', 
+    titulo: 'Nombre del proyecto o evento', 
     creador: 'Creador del proyecto', 
     temas: 'Temas', 
     descripcion: 'Descripción', 
@@ -54,7 +54,7 @@ export const Urdimbre_EHE = {
 export const DATOS_SITIO = {
   id: 829612,
   campos: {
-    titulo: 'Nombre del proyecto', 
+    titulo: 'Nombre del proyecto o evento', 
     introTitulo: 'titulointro', // Ajuste para que coincida con la lógica de secciones
     introTexto: 'intro',
     coleccionTitulo: 'titulocoleccion ',
