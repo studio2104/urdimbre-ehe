@@ -52,7 +52,7 @@ export const Urdimbre_EHE = {
 export const DATOS_SITIO = {
   id: 829612,
   campos: {
-    titulo: 'Nombre del Sitio', 
+    titulo: 'Nombre del proyecto', 
     introTitulo: 'titulointro', // Ajuste para que coincida con la lógica de secciones
     introTexto: 'intro',
     coleccionTitulo: 'titulocoleccion ',
