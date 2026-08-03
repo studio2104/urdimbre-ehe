@@ -41,9 +41,11 @@ export const Urdimbre_EHE = {
     creador: 'Creador del proyecto', 
     temas: 'Temas', 
     descripcion: 'Descripción', 
+    tipodeproyecto: 'Tipo de proyecto',
     contribuidor: 'Colaboradores', 
     año: 'Año', 
-    tipo: 'Tipo de actividad',
+    fecha: 'Fecha',
+    tipo: 'Tipo de archivo compartido',
     imagen: 'Imagen',
     enlace: 'Enlace'
   },
