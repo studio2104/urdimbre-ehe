@@ -37,13 +37,13 @@ export const BASEROW = {
 export const Urdimbre_EHE = { 
   id: 826870,
   campos: {
-    titulo: 'Name', 
-    creador: 'Creador', 
+    titulo: 'Nombre del proyecto', 
+    creador: 'Creador del proyecto', 
     temas: 'Temas', 
     descripcion: 'Descripción', 
-    contribuidor: 'Contribuidor', 
+    contribuidor: 'Colaboradores', 
     año: 'Año', 
-    tipo: 'Tipo',
+    tipo: 'Tipo de actividad',
     imagen: 'Imagen',
     enlace: 'Enlace'
   },
