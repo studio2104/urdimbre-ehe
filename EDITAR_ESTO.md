@@ -21,7 +21,7 @@ export const BASEROW = {
 export const TABLA_PROYECTOS = {
   id: 67890, // ← De la URL de tu tabla
   campos: {
-    titulo: 'Título', // ← Nombre exacto en Baserow
+    titulo: 'Nombre del proyecto', // ← Nombre exacto en Baserow
     descripcion: 'Descripción', // ← Nombre exacto en Baserow
     imagen: 'Imagen', // ← Nombre exacto en Baserow
     enlace: 'Enlace', // ← Nombre exacto en Baserow
